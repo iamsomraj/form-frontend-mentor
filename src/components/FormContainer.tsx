@@ -1,6 +1,20 @@
+import { ReactNode } from 'react';
+
 import { useAppDispatch } from '../app/hooks';
 import { FORM_TEMPLATES, SIDE_BAR_MENU_OPTIONS } from '../constants';
 import { selectStep, StepType, useCurrentStep } from '../features/payment/paymentSlice';
+
+interface FormWrapperProps {
+  children: ReactNode;
+}
+
+const FormWrapper: React.FC<FormWrapperProps> = (props) => {
+  return (
+    <form className="mx-6 -mt-[10%] flex flex-1 flex-col gap-6 rounded-lg bg-white py-4 shadow-xl desktop:m-0 desktop:mr-8  desktop:pt-10 desktop:shadow-none">
+      {props.children}
+    </form>
+  );
+};
 
 interface FormHeaderProps {
   title: string;
@@ -9,7 +23,7 @@ interface FormHeaderProps {
 
 const FormHeader: React.FC<FormHeaderProps> = ({ title, description }) => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2 px-4 ">
       <h1 className="font-primary-bold text-2xl font-bold text-marine-blue">{title}</h1>
       <h3 className="font-primary-medium text-lg font-medium text-light-gray">
         {description}
@@ -26,20 +40,26 @@ type LayoutItem = {
   required: boolean;
 };
 
-interface FormWrapperProps {
+interface FormBodyProps {
   layout: LayoutItem[];
 }
 
-const FormWrapper: React.FC<FormWrapperProps> = ({ layout }) => {
+const FormBody: React.FC<FormBodyProps> = ({ layout }) => {
   return (
-    <form>
+    <div className="flex flex-col gap-2">
       {layout.map(({ type, name, label, placeholder, required }) => (
-        <div key={name} className="flex flex-col gap-4">
-          <label className="font-primary-medium text-lg font-medium text-light-gray">
-            {label}
-          </label>
-          <div className="flex flex-col gap-4">
+        <div key={name} className="flex flex-col gap-1 px-4">
+          <div className="flex justify-between">
+            <label className="font-primary-regular text-base text-marine-blue">
+              {label}
+            </label>
+            <span className="font-primary-medium text-base font-medium text-strawberry-red">
+              This field is required
+            </span>
+          </div>
+          <div className="flex flex-col">
             <input
+              className="rounded-lg border border-light-gray p-2 font-primary-bold font-bold text-marine-blue outline-none placeholder:font-primary-bold placeholder:font-bold placeholder:text-cool-gray focus:border-purplish-blue"
               type={type}
               name={name}
               placeholder={placeholder}
@@ -48,7 +68,29 @@ const FormWrapper: React.FC<FormWrapperProps> = ({ layout }) => {
           </div>
         </div>
       ))}
-    </form>
+    </div>
+  );
+};
+
+interface FormFooterProps {
+  currentStep: StepType;
+}
+
+const FormFooter: React.FC<FormFooterProps> = ({ currentStep }) => {
+  const isLastStep =
+    currentStep === SIDE_BAR_MENU_OPTIONS[SIDE_BAR_MENU_OPTIONS.length - 1].slug;
+
+  return (
+    <div className="fixed inset-x-0 bottom-0 w-full bg-light-blue desktop:static">
+      <div className="flex justify-between bg-white px-4 py-4 desktop:py-0">
+        <button className="bg-[transparent] font-primary-medium text-sm text-cool-gray">
+          Go Back
+        </button>
+        <button className="rounded-md bg-marine-blue px-4 py-2 font-primary-medium text-sm text-light-blue">
+          {isLastStep ? 'Confirm' : 'Next Step'}
+        </button>
+      </div>
+    </div>
   );
 };
 
@@ -107,13 +149,13 @@ const FormContainer: React.FC = () => {
   const header = currentForm.header;
 
   return (
-    <main className="relative flex min-h-screen w-full items-center justify-center desktop:px-12 desktop:py-24">
+    <main className="relative flex max-h-screen min-h-screen w-full items-start justify-center desktop:items-center desktop:px-12 desktop:py-24">
       {/* DESKTOP BACKGROUND */}
       <div className="absolute inset-0 -z-10 hidden bg-white desktop:block"></div>
       {/* DESKTOP BACKGROUND */}
 
-      <section className="h-screen w-full bg-light-blue shadow-2xl desktop:flex desktop:h-[70vh] desktop:flex-col desktop:rounded-lg desktop:px-40 desktop:py-12">
-        <div className="mx-auto w-full flex-1 justify-start gap-2 bg-white shadow-xl desktop:flex desktop:rounded-lg">
+      <section className="h-screen w-full flex-1 bg-light-blue shadow-2xl desktop:flex desktop:h-[70vh] desktop:flex-col desktop:rounded-lg desktop:px-40 desktop:py-12">
+        <div className="mx-auto w-full flex-1 justify-start desktop:flex desktop:gap-16 desktop:rounded-lg desktop:bg-white desktop:shadow-xl">
           {/* SIDE BAR */}
           <div className="-mx-10 flex h-[30vh] items-start justify-center bg-[url('../../src/assets/images/bg-sidebar-desktop.svg')] bg-cover bg-bottom pt-6 desktop:m-3 desktop:h-auto desktop:flex-col desktop:justify-start desktop:gap-6 desktop:rounded-lg desktop:bg-center desktop:py-8">
             {/* SIDE BAR MENU ITEM */}
@@ -129,9 +171,13 @@ const FormContainer: React.FC = () => {
           {/* SIDE BAR */}
 
           {/* FORM SECTION */}
-          <div className="flex-1">
-            <FormHeader title={header.title} description={header.description} />
-            <FormWrapper layout={layout} />
+          <div className="flex-1 bg-[transparent]">
+            <FormWrapper>
+              <FormHeader title={header.title} description={header.description} />
+              <FormBody layout={layout} />
+              <div className="flex-1"></div>
+              <FormFooter currentStep={currentStep} />
+            </FormWrapper>
           </div>
           {/* FORM SECTION */}
         </div>

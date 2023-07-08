@@ -16,3 +16,9 @@
   font-family: 'Ubuntu-Bold';
   src: url('./assets/fonts/Ubuntu-Bold.ttf');
 }
+
+#root {
+  max-height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+}
