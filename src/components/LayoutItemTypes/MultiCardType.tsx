@@ -1,8 +1,4 @@
-import AdvancedImage from '../../assets/images/icon-advanced.svg';
-import ArcadeImage from '../../assets/images/icon-arcade.svg';
-import ProImage from '../../assets/images/icon-pro.svg';
 import { MultiCardLayoutItem } from '../../constants';
-import Card from '../Card';
 
 interface MultiCardTypeProps {
   layout: MultiCardLayoutItem;
