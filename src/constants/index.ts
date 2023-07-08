@@ -107,21 +107,21 @@ export const FORM_TEMPLATES = [
         label: 'Name',
         placeholder: 'e.g. Stephen King',
         required: true,
-      },
+      } as TextLayoutItem,
       {
         type: LAYOUT_ITEM_TYPE_VALUES.EMAIL,
         name: 'email',
         label: 'Email Address',
         placeholder: 'e.g. stephenking@lorem.com',
         required: true,
-      },
+      } as EmailLayoutItem,
       {
         type: LAYOUT_ITEM_TYPE_VALUES.TEXT,
         name: 'phone',
         label: 'Phone Number',
         placeholder: 'e.g. +1 234 567 890',
         required: true,
-      },
+      } as TextLayoutItem,
     ],
   },
   {
@@ -147,13 +147,13 @@ export const FORM_TEMPLATES = [
             yearlyPrice: 129,
           },
           {
-            label: 'Arcade',
-            value: 'arcade',
+            label: 'Pro',
+            value: 'pro',
             monthlyPrice: 15,
             yearlyPrice: 159,
           },
         ],
-      },
+      } as SingleCardLayoutItem,
       {
         type: LAYOUT_ITEM_TYPE_VALUES.CHECKBOX,
         options: {
@@ -166,7 +166,7 @@ export const FORM_TEMPLATES = [
             value: 'yearly',
           },
         },
-      },
+      } as CheckboxLayoutItem,
     ],
   },
   {
@@ -201,7 +201,7 @@ export const FORM_TEMPLATES = [
             yearlyPrice: 21,
           },
         ],
-      },
+      } as MultiCardLayoutItem,
     ],
   },
   {

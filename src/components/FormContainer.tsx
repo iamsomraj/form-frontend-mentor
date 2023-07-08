@@ -23,11 +23,11 @@ const FormContainer: React.FC = () => {
     <main className="relative flex max-h-screen min-h-screen w-full items-start justify-center desktop:items-center desktop:px-12 desktop:py-24">
       <DesktopBackground />
 
-      <section className="h-screen w-full flex-1 bg-light-blue shadow-2xl desktop:flex desktop:h-[70vh] desktop:flex-col desktop:rounded-lg desktop:px-40 desktop:py-12">
-        <div className="mx-auto w-full justify-start desktop:flex desktop:h-[60vh] desktop:gap-16 desktop:rounded-lg desktop:bg-white desktop:shadow-xl">
+      <section className="h-screen w-full flex-1 items-center justify-center bg-light-blue shadow-2xl desktop:flex desktop:h-[90vh] desktop:flex-col desktop:rounded-lg desktop:px-40 desktop:py-12">
+        <div className="w-full justify-start desktop:flex desktop:h-[70vh] desktop:gap-16 desktop:rounded-lg desktop:bg-white desktop:shadow-xl">
           <SideBar currentStep={currentStep} />
 
-          <div className="flex-1 bg-[transparent]">
+          <div className="flex flex-1 flex-col bg-[transparent]">
             <FormWrapper>
               <FormHeader title={header.title} description={header.description} />
               <FormBody layout={layout} />
