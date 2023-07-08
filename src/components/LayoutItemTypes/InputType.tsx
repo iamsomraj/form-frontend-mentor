@@ -1,4 +1,8 @@
-import { EmailLayoutItem, LAYOUT_ITEM_TYPE_VALUES, TextLayoutItem } from '../constants';
+import {
+  EmailLayoutItem,
+  LAYOUT_ITEM_TYPE_VALUES,
+  TextLayoutItem,
+} from '../../constants';
 
 interface InputTypeProps {
   layout: TextLayoutItem | EmailLayoutItem;
