@@ -12,7 +12,7 @@ const FormFooter: React.FC<FormFooterProps> = ({ currentStep }) => {
   return (
     <div className="fixed inset-x-0 bottom-0 w-full bg-light-blue desktop:static">
       <div className="flex justify-between bg-white px-4 py-4 desktop:py-0">
-        <button className="bg-[transparent] font-primary-medium text-sm text-cool-gray">
+        <button className="bg-[transparent] font-primary-medium text-sm  text-cool-gray hover:text-marine-blue">
           Go Back
         </button>
         <button className="rounded-md bg-marine-blue px-4 py-2 font-primary-medium text-sm text-light-blue">
