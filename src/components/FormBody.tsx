@@ -1,6 +1,7 @@
 import { LAYOUT_ITEM_TYPE_VALUES, LayoutItemType } from '../constants';
 import CheckboxType from './LayoutItemTypes/CheckboxType';
 import InputType from './LayoutItemTypes/InputType';
+import MultiCardType from './LayoutItemTypes/MultiCardType';
 import SingleCardType from './LayoutItemTypes/SingleCardType';
 
 interface FormBodyProps {
@@ -16,6 +17,8 @@ const getLayoutItem = (layout: LayoutItemType, index: number) => {
       return <SingleCardType key={index} layout={layout} />;
     case LAYOUT_ITEM_TYPE_VALUES.CHECKBOX:
       return <CheckboxType key={index} layout={layout} />;
+    case LAYOUT_ITEM_TYPE_VALUES.MULTI_CARD:
+      return <MultiCardType key={index} layout={layout} />;
     default:
       return <div key={index}>Could Not Find</div>;
   }

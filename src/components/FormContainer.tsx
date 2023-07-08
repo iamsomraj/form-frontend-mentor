@@ -1,6 +1,5 @@
 import { FORM_TEMPLATES } from '../constants';
 import { useCurrentStep } from '../features/payment/paymentSlice';
-import DesktopBackground from './DesktopBackground';
 import FormBody from './FormBody';
 import FormFooter from './FormFooter';
 import FormHeader from './FormHeader';
@@ -20,20 +19,15 @@ const FormContainer: React.FC = () => {
   const header = currentForm.header;
 
   return (
-    <main className="relative flex max-h-screen min-h-screen w-full items-start justify-center desktop:items-center desktop:px-12 desktop:py-24">
-      <DesktopBackground />
-
-      <section className="h-screen w-full flex-1 items-center justify-center bg-light-blue shadow-2xl desktop:flex desktop:h-[90vh] desktop:flex-col desktop:rounded-lg desktop:px-40 desktop:py-12">
-        <div className="w-full justify-start desktop:flex desktop:h-[70vh] desktop:gap-16 desktop:rounded-lg desktop:bg-white desktop:shadow-xl">
-          <SideBar currentStep={currentStep} />
-
-          <div className="flex flex-1 flex-col bg-[transparent]">
-            <FormWrapper>
-              <FormHeader title={header.title} description={header.description} />
-              <FormBody layout={layout} />
-              <FormFooter currentStep={currentStep} />
-            </FormWrapper>
-          </div>
+    <main className="flex max-h-screen min-h-screen w-full items-start justify-center bg-light-blue desktop:items-center desktop:px-64 desktop:py-24">
+      <section className="w-full justify-start desktop:flex desktop:h-[70vh] desktop:gap-16 desktop:rounded-lg desktop:bg-white desktop:shadow-xl">
+        <SideBar currentStep={currentStep} />
+        <div className="flex flex-1 flex-col bg-[transparent]">
+          <FormWrapper>
+            <FormHeader title={header.title} description={header.description} />
+            <FormBody layout={layout} />
+            <FormFooter currentStep={currentStep} />
+          </FormWrapper>
         </div>
       </section>
     </main>
