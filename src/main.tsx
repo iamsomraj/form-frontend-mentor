@@ -1,13 +1,19 @@
 import './index.css';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
 
 import App from './App';
+import { store } from './app/store';
 
-ReactDOM.render(
-  <React.StrictMode>
+const container = document.getElementById('root');
+if (!container) {
+  throw new Error('Could not find container');
+}
+
+const root = createRoot(container);
+root.render(
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root'),
+  </Provider>,
 );
