@@ -2,6 +2,21 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { useAppSelector } from '../../app/hooks';
 
+const isValidName = (name: string): boolean => {
+  const nameRegex = /^[A-Za-z]+$/;
+  return nameRegex.test(name);
+};
+
+const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  return emailRegex.test(email);
+};
+
+const isValidPhone = (phone: string): boolean => {
+  const phoneRegex = /^[0-9+\\-]+$/;
+  return phoneRegex.test(phone);
+};
+
 export type StepType =
   | 'step-1-your-info'
   | 'step-2-select-plan'
@@ -132,9 +147,14 @@ export const useHasError = () =>
     const isLastStep = currentStep === 'step-4-summary';
     if (isFirstStep) {
       const nameEmpty = state.payment.name.length === 0;
+      const validName = isValidName(state.payment.name);
       const emailEmpty = state.payment.email.length === 0;
+      const validEmail = isValidEmail(state.payment.email);
       const phoneEmpty = state.payment.phone.length === 0;
-      return nameEmpty || emailEmpty || phoneEmpty;
+      const validPhone = isValidPhone(state.payment.phone);
+      return (
+        nameEmpty || !validName || emailEmpty || !validEmail || phoneEmpty || !validPhone
+      );
     }
     if (isSecondStep) {
       const planEmpty = state.payment.plan === null;
@@ -142,10 +162,21 @@ export const useHasError = () =>
     }
     if (isLastStep) {
       const nameEmpty = state.payment.name.length === 0;
+      const validName = isValidName(state.payment.name);
       const emailEmpty = state.payment.email.length === 0;
+      const validEmail = isValidEmail(state.payment.email);
       const phoneEmpty = state.payment.phone.length === 0;
+      const validPhone = isValidPhone(state.payment.phone);
       const planEmpty = state.payment.plan === null;
-      return nameEmpty || emailEmpty || phoneEmpty || planEmpty;
+      return (
+        nameEmpty ||
+        !validName ||
+        emailEmpty ||
+        !validEmail ||
+        phoneEmpty ||
+        !validPhone ||
+        planEmpty
+      );
     }
     return false;
   });
