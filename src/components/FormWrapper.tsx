@@ -17,7 +17,7 @@ const FormWrapper: React.FC<FormWrapperProps> = (props) => {
         className="h-12  w-12 flex-shrink-0 overflow-hidden rounded-full object-cover object-center"
       />
       <div className="text-center font-primary-bold text-2xl font-bold">Thank you!</div>
-      <div className="max-w-xs break-words text-center font-primary-regular text-base text-cool-gray">
+      <div className="max-w-[240px] break-words text-center font-primary-regular text-base text-cool-gray desktop:max-w-xs">
         Thanks for confirming your subscription! We hope you have fun using our platform.
         If you ever need support, please feel free to email us at support@loremgaming.com.
       </div>
