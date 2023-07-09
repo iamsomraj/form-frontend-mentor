@@ -71,7 +71,6 @@ const InputType = ({ layout }: InputTypeProps) => {
           required={required}
           onChange={onInputChange}
           onFocus={() => setShowValidation(true)}
-          onBlur={() => setShowValidation(false)}
         />
       </div>
     </div>
