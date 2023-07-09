@@ -9,10 +9,6 @@ This is a solution to the [Multi-step form challenge on Frontend Mentor](https:/
 - See a summary of selections on the final step and confirm the order
 - View the optimal layout for different screen sizes
 - See hover and focus states for interactive elements
-- Receive form validation messages for:
-  - Missing fields
-  - Incorrectly formatted email address
-  - Submitting a step without making a selection
 
 ## Preview
 
