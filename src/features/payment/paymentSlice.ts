@@ -11,7 +11,8 @@ export type StepType =
 export interface SellableItem {
   name: string;
   value: string;
-  price: number;
+  monthlyPrice: number;
+  yearlyPrice: number;
 }
 
 export type PlanType = SellableItem | null;
@@ -83,9 +84,31 @@ export const useName = () => useAppSelector((state) => state.payment.name);
 export const useEmail = () => useAppSelector((state) => state.payment.email);
 export const usePhone = () => useAppSelector((state) => state.payment.phone);
 export const usePlan = () => useAppSelector((state) => state.payment.plan);
+export const usePlanPrice = () =>
+  useAppSelector((state) =>
+    state.payment.yearly
+      ? state.payment.plan?.yearlyPrice
+      : state.payment.plan?.monthlyPrice,
+  );
 export const useYearly = () => useAppSelector((state) => state.payment.yearly);
 export const useTariff = () =>
   useAppSelector((state) => (state.payment.yearly ? 'yr' : 'mo'));
+export const useLongTariff = () =>
+  useAppSelector((state) => (state.payment.yearly ? 'Yearly' : 'Monthly'));
 export const useAddOns = () => useAppSelector((state) => state.payment.addOns);
+export const useTotalPrice = () => {
+  const plan = usePlan();
+  if (!plan) return 0;
+  const addOns = useAddOns();
+  const yearly = useYearly();
+
+  const planPrice = yearly ? plan.yearlyPrice : plan.monthlyPrice;
+  const addOnsPrice = addOns.reduce(
+    (total, addOn) => total + (yearly ? addOn.yearlyPrice : addOn.monthlyPrice),
+    0,
+  );
+
+  return planPrice + addOnsPrice;
+};
 
 export default paymentSlice.reducer;

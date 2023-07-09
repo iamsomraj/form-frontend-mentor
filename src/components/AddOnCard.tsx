@@ -39,7 +39,8 @@ const AddOnCard = ({ option, isAdded }: AddOnCardProps) => {
             {
               name: option.label,
               value: option.value,
-              price: yearly ? option.monthlyPrice : option.yearlyPrice,
+              monthlyPrice: option.monthlyPrice,
+              yearlyPrice: option.yearlyPrice,
             },
           ],
         }),

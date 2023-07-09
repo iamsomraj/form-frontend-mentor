@@ -14,6 +14,7 @@ const CheckboxType = ({ layout }: CheckboxTypeProps) => {
   const plan = usePlan();
   const yearly = useYearly();
   const dispatch = useAppDispatch();
+
   const onCheckboxChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
 

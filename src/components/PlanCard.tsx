@@ -32,7 +32,8 @@ const Card = ({ option, icon }: CardProps) => {
         plan: {
           name: option.label,
           value: option.value,
-          price: yearly ? option.monthlyPrice : option.yearlyPrice,
+          monthlyPrice: option.monthlyPrice,
+          yearlyPrice: option.yearlyPrice,
         },
       }),
     );
