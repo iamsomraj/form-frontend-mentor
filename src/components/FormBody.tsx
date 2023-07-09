@@ -1,11 +1,18 @@
-import { LAYOUT_ITEM_TYPE_VALUES, LayoutItemType } from '../constants';
+import {
+  LAYOUT_ITEM_TYPE_VALUES,
+  LayoutItemType,
+  SIDE_BAR_MENU_OPTIONS,
+} from '../constants';
+import { StepType } from '../features/payment/paymentSlice';
 import CheckboxType from './LayoutItemTypes/CheckboxType';
 import InputType from './LayoutItemTypes/InputType';
 import MultiCardType from './LayoutItemTypes/MultiCardType';
 import SingleCardType from './LayoutItemTypes/SingleCardType';
+import Overview from './Overview';
 
 interface FormBodyProps {
   layout: LayoutItemType[];
+  currentStep: StepType;
 }
 
 const getLayoutItem = (layout: LayoutItemType, index: number) => {
@@ -24,12 +31,13 @@ const getLayoutItem = (layout: LayoutItemType, index: number) => {
   }
 };
 
-const FormBody: React.FC<FormBodyProps> = ({ layout }) => {
-  return (
-    <div className="flex flex-1 flex-col gap-2 desktop:gap-4">
-      {layout.map((layout, index) => getLayoutItem(layout, index))}
-    </div>
-  );
+const FormBody: React.FC<FormBodyProps> = ({ layout, currentStep }) => {
+  const layoutContent = layout.map((layout, index) => getLayoutItem(layout, index));
+  const finalOverviewContent = <Overview />;
+  const isLastStep =
+    currentStep === SIDE_BAR_MENU_OPTIONS[SIDE_BAR_MENU_OPTIONS.length - 1].slug;
+  const formBody = isLastStep ? finalOverviewContent : layoutContent;
+  return <div className="flex flex-1 flex-col gap-2 desktop:gap-4">{formBody}</div>;
 };
 
 export default FormBody;

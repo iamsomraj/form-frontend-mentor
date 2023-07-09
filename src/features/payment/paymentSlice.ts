@@ -8,11 +8,24 @@ export type StepType =
   | 'step-3-add-ons'
   | 'step-4-summary';
 
+export interface SellableItem {
+  name: string;
+  value: string;
+  price: number;
+}
+
+export type PlanType = SellableItem | null;
+
+export type AddOnType = SellableItem[];
+
 interface PaymentState {
   currentStep: StepType;
   name: string;
   email: string;
   phone: string;
+  plan: PlanType;
+  addOns: AddOnType;
+  monthly: boolean;
 }
 
 const initialState: PaymentState = {
@@ -20,12 +33,24 @@ const initialState: PaymentState = {
   name: '',
   email: '',
   phone: '',
+  plan: null,
+  addOns: [],
+  monthly: false,
 };
 
 type FirstStepActionPayload = {
   name: string;
   email: string;
   phone: string;
+};
+
+type SecondStepActionPayload = {
+  plan: PlanType;
+  monthly: boolean;
+};
+
+type ThirdStepActionPayload = {
+  addOns: AddOnType;
 };
 
 const paymentSlice = createSlice({
@@ -39,6 +64,13 @@ const paymentSlice = createSlice({
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.phone = action.payload.phone;
+    },
+    submitSecondStep: (state, action: PayloadAction<SecondStepActionPayload>) => {
+      state.plan = action.payload.plan;
+      state.monthly = action.payload.monthly;
+    },
+    submitThirdStep: (state, action: PayloadAction<ThirdStepActionPayload>) => {
+      state.addOns = action.payload.addOns;
     },
   },
 });

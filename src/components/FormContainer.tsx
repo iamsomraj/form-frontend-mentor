@@ -25,7 +25,7 @@ const FormContainer: React.FC = () => {
         <div className="flex flex-1 flex-col bg-[transparent]">
           <FormWrapper>
             <FormHeader title={header.title} description={header.description} />
-            <FormBody layout={layout} />
+            <FormBody layout={layout} currentStep={currentStep} />
             <FormFooter currentStep={currentStep} />
           </FormWrapper>
         </div>
