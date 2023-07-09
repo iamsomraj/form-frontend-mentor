@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useAppDispatch } from '../../app/hooks';
 import {
   EmailLayoutItem,
@@ -16,6 +17,7 @@ interface InputTypeProps {
 }
 
 const InputType = ({ layout }: InputTypeProps) => {
+  const [showValidation, setShowValidation] = useState(false);
   const name = useName();
   const email = useEmail();
   const phone = usePhone();
@@ -26,6 +28,8 @@ const InputType = ({ layout }: InputTypeProps) => {
   const value = layoutName === 'name' ? name : layoutName === 'email' ? email : phone;
   const isEmpty = value.length === 0;
   const isInvalid = !isEmpty && !layout.pattern.test(value);
+  const allowEmptyValidation = isEmpty && showValidation;
+  const allowInvalidValidation = isInvalid && showValidation;
   const type = layoutType === LAYOUT_ITEM_TYPE_VALUES.TEXT ? 'text' : 'email';
 
   const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -45,12 +49,12 @@ const InputType = ({ layout }: InputTypeProps) => {
     <div key={layoutName} className="flex flex-col gap-1 px-4">
       <div className="flex justify-between">
         <label className="font-primary-regular text-base text-marine-blue">{label}</label>
-        {isEmpty && (
+        {allowEmptyValidation && (
           <span className="font-primary-medium text-base font-medium text-strawberry-red">
             This field is required
           </span>
         )}
-        {isInvalid && (
+        {allowInvalidValidation && (
           <span className="font-primary-medium text-base font-medium text-strawberry-red">
             This field is invalid
           </span>
@@ -65,6 +69,8 @@ const InputType = ({ layout }: InputTypeProps) => {
           placeholder={placeholder}
           required={required}
           onChange={onInputChange}
+          onFocus={() => setShowValidation(true)}
+          onBlur={() => setShowValidation(false)}
         />
       </div>
     </div>
