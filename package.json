@@ -1,5 +1,5 @@
 {
-  "name": "react-ts-tailwind-eslint-prettier",
+  "name": "form-frontend-mentor",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
