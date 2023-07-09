@@ -1,6 +1,11 @@
 import { useAppDispatch } from '../app/hooks';
 import { SIDE_BAR_MENU_OPTIONS } from '../constants';
-import { selectStep, StepType, useHasError } from '../features/payment/paymentSlice';
+import {
+  confirmPurchase,
+  selectStep,
+  StepType,
+  useHasError,
+} from '../features/payment/paymentSlice';
 
 interface FormFooterProps {
   currentStep: StepType;
@@ -17,7 +22,7 @@ const FormFooter: React.FC<FormFooterProps> = ({ currentStep }) => {
     event.preventDefault();
 
     if (isLastStep) {
-      alert('Yayy! Order confirmed!');
+      dispatch(confirmPurchase());
       return;
     }
 

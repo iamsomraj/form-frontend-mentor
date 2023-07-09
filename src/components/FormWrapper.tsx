@@ -1,13 +1,14 @@
 import { ReactNode } from 'react';
 
 import ThankYouImage from '../assets/images/icon-thank-you.svg';
+import { usePurchaseConfirmed } from '../features/payment/paymentSlice';
 
 interface FormWrapperProps {
   children: ReactNode;
 }
 
 const FormWrapper: React.FC<FormWrapperProps> = (props) => {
-  const confirmed = false;
+  const confirmed = usePurchaseConfirmed();
   const thankYouContent = (
     <div className="flex flex-1 flex-col items-center justify-center gap-4">
       <img

@@ -27,6 +27,7 @@ interface PaymentState {
   plan: PlanType;
   addOns: AddOnType;
   yearly: boolean;
+  purchasedConfirmed: boolean;
 }
 
 const initialState: PaymentState = {
@@ -37,6 +38,7 @@ const initialState: PaymentState = {
   plan: null,
   addOns: [],
   yearly: false,
+  purchasedConfirmed: false,
 };
 
 type FirstStepActionPayload = {
@@ -73,17 +75,27 @@ const paymentSlice = createSlice({
     submitThirdStep: (state, action: PayloadAction<ThirdStepActionPayload>) => {
       state.addOns = action.payload.addOns;
     },
+    confirmPurchase: (state) => {
+      state.purchasedConfirmed = true;
+    },
   },
 });
 
-export const { selectStep, submitFirstStep, submitSecondStep, submitThirdStep } =
-  paymentSlice.actions;
+export const {
+  selectStep,
+  submitFirstStep,
+  submitSecondStep,
+  submitThirdStep,
+  confirmPurchase,
+} = paymentSlice.actions;
 
 export const useCurrentStep = () => useAppSelector((state) => state.payment.currentStep);
 export const useName = () => useAppSelector((state) => state.payment.name);
 export const useEmail = () => useAppSelector((state) => state.payment.email);
 export const usePhone = () => useAppSelector((state) => state.payment.phone);
 export const usePlan = () => useAppSelector((state) => state.payment.plan);
+export const usePurchaseConfirmed = () =>
+  useAppSelector((state) => state.payment.purchasedConfirmed);
 export const usePlanPrice = () =>
   useAppSelector((state) =>
     state.payment.yearly
