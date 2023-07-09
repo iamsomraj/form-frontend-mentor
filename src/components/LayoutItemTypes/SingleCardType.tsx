@@ -2,7 +2,7 @@ import AdvancedImage from '../../assets/images/icon-advanced.svg';
 import ArcadeImage from '../../assets/images/icon-arcade.svg';
 import ProImage from '../../assets/images/icon-pro.svg';
 import { SingleCardLayoutItem } from '../../constants';
-import Card from '../Card';
+import Card from '../PlanCard';
 
 interface SingleCardTypeProps {
   layout: SingleCardLayoutItem;

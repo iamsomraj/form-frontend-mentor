@@ -128,7 +128,7 @@ export const FORM_TEMPLATES = [
     slug: 'step-2-select-plan',
     header: {
       title: 'Select your plan',
-      description: 'You have the option of monthly or yearly billing.',
+      description: 'You have the option of yearly or yearly billing.',
     },
     layout: [
       {
@@ -159,7 +159,7 @@ export const FORM_TEMPLATES = [
         options: {
           true: {
             label: 'Monthly',
-            value: 'monthly',
+            value: 'yearly',
           },
           false: {
             label: 'Yearly',

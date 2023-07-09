@@ -25,7 +25,7 @@ interface PaymentState {
   phone: string;
   plan: PlanType;
   addOns: AddOnType;
-  monthly: boolean;
+  yearly: boolean;
 }
 
 const initialState: PaymentState = {
@@ -35,7 +35,7 @@ const initialState: PaymentState = {
   phone: '',
   plan: null,
   addOns: [],
-  monthly: false,
+  yearly: false,
 };
 
 type FirstStepActionPayload = {
@@ -46,7 +46,7 @@ type FirstStepActionPayload = {
 
 type SecondStepActionPayload = {
   plan: PlanType;
-  monthly: boolean;
+  yearly: boolean;
 };
 
 type ThirdStepActionPayload = {
@@ -67,7 +67,7 @@ const paymentSlice = createSlice({
     },
     submitSecondStep: (state, action: PayloadAction<SecondStepActionPayload>) => {
       state.plan = action.payload.plan;
-      state.monthly = action.payload.monthly;
+      state.yearly = action.payload.yearly;
     },
     submitThirdStep: (state, action: PayloadAction<ThirdStepActionPayload>) => {
       state.addOns = action.payload.addOns;
@@ -75,11 +75,17 @@ const paymentSlice = createSlice({
   },
 });
 
-export const { selectStep, submitFirstStep } = paymentSlice.actions;
+export const { selectStep, submitFirstStep, submitSecondStep, submitThirdStep } =
+  paymentSlice.actions;
 
 export const useCurrentStep = () => useAppSelector((state) => state.payment.currentStep);
 export const useName = () => useAppSelector((state) => state.payment.name);
 export const useEmail = () => useAppSelector((state) => state.payment.email);
 export const usePhone = () => useAppSelector((state) => state.payment.phone);
+export const usePlan = () => useAppSelector((state) => state.payment.plan);
+export const useYearly = () => useAppSelector((state) => state.payment.yearly);
+export const useTariff = () =>
+  useAppSelector((state) => (state.payment.yearly ? 'yr' : 'mo'));
+export const useAddOns = () => useAppSelector((state) => state.payment.addOns);
 
 export default paymentSlice.reducer;
