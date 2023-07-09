@@ -58,7 +58,9 @@ const FormFooter: React.FC<FormFooterProps> = ({ currentStep }) => {
         <button
           disabled={hasError}
           onClick={onNext}
-          className="rounded-md bg-marine-blue px-4 py-2 font-primary-medium text-sm text-light-blue disabled:cursor-not-allowed disabled:opacity-50"
+          className={`rounded-md ${
+            isLastStep ? 'bg-purplish-blue text-white' : 'bg-marine-blue text-light-blue'
+          }  px-4 py-2 font-primary-medium text-sm text-light-blue disabled:cursor-not-allowed disabled:opacity-50`}
         >
           {isLastStep ? 'Confirm' : 'Next Step'}
         </button>

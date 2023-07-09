@@ -129,6 +129,7 @@ export const useHasError = () =>
     const currentStep = state.payment.currentStep;
     const isFirstStep = currentStep === 'step-1-your-info';
     const isSecondStep = currentStep === 'step-2-select-plan';
+    const isLastStep = currentStep === 'step-4-summary';
     if (isFirstStep) {
       const nameEmpty = state.payment.name.length === 0;
       const emailEmpty = state.payment.email.length === 0;
@@ -138,6 +139,13 @@ export const useHasError = () =>
     if (isSecondStep) {
       const planEmpty = state.payment.plan === null;
       return planEmpty;
+    }
+    if (isLastStep) {
+      const nameEmpty = state.payment.name.length === 0;
+      const emailEmpty = state.payment.email.length === 0;
+      const phoneEmpty = state.payment.phone.length === 0;
+      const planEmpty = state.payment.plan === null;
+      return nameEmpty || emailEmpty || phoneEmpty || planEmpty;
     }
     return false;
   });
