@@ -23,7 +23,7 @@ const Overview = () => {
     return (
       <div className="mx-4 flex flex-col gap-4">
         <div className="flex flex-col gap-2 rounded-lg bg-magnolia p-4 px-6 text-center font-primary-bold font-bold text-cool-gray">
-          Plan not available!
+          Shucks! Your cart is empty.
         </div>
       </div>
     );
