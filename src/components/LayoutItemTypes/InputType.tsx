@@ -25,6 +25,7 @@ const InputType = ({ layout }: InputTypeProps) => {
   const { name: layoutName, label, type: layoutType, placeholder, required } = layout;
   const value = layoutName === 'name' ? name : layoutName === 'email' ? email : phone;
   const isEmpty = value.length === 0;
+  const isInvalid = !isEmpty && !layout.pattern.test(value);
   const type = layoutType === LAYOUT_ITEM_TYPE_VALUES.TEXT ? 'text' : 'email';
 
   const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -47,6 +48,11 @@ const InputType = ({ layout }: InputTypeProps) => {
         {isEmpty && (
           <span className="font-primary-medium text-base font-medium text-strawberry-red">
             This field is required
+          </span>
+        )}
+        {isInvalid && (
+          <span className="font-primary-medium text-base font-medium text-strawberry-red">
+            This field is invalid
           </span>
         )}
       </div>

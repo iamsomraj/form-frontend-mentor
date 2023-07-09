@@ -3,18 +3,18 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useAppSelector } from '../../app/hooks';
 
 const isValidName = (name: string): boolean => {
-  const nameRegex = /^[A-Za-z]+$/;
+  const nameRegex = /^[A-Za-z\s]+$/;
   return nameRegex.test(name);
+};
+
+const isValidPhone = (phone: string): boolean => {
+  const phoneRegex = /^[0-9+\-\s]+$/;
+  return phoneRegex.test(phone);
 };
 
 const isValidEmail = (email: string): boolean => {
   const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
   return emailRegex.test(email);
-};
-
-const isValidPhone = (phone: string): boolean => {
-  const phoneRegex = /^[0-9+\\-]+$/;
-  return phoneRegex.test(phone);
 };
 
 export type StepType =

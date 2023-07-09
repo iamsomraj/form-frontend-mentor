@@ -12,6 +12,7 @@ export type TextLayoutItem = {
   type: LAYOUT_ITEM_TYPE_VALUES.TEXT;
   name: string;
   label: string;
+  pattern: RegExp;
   placeholder: string;
   required: boolean;
 };
@@ -19,6 +20,7 @@ export type TextLayoutItem = {
 export type EmailLayoutItem = {
   type: LAYOUT_ITEM_TYPE_VALUES.EMAIL;
   name: string;
+  pattern: RegExp;
   label: string;
   placeholder: string;
   required: boolean;
@@ -105,6 +107,7 @@ export const FORM_TEMPLATES = [
         type: LAYOUT_ITEM_TYPE_VALUES.TEXT,
         name: 'name',
         label: 'Name',
+        pattern: /^[A-Za-z\s]+$/,
         placeholder: 'e.g. Stephen King',
         required: true,
       } as TextLayoutItem,
@@ -112,6 +115,7 @@ export const FORM_TEMPLATES = [
         type: LAYOUT_ITEM_TYPE_VALUES.EMAIL,
         name: 'email',
         label: 'Email Address',
+        pattern: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
         placeholder: 'e.g. stephenking@lorem.com',
         required: true,
       } as EmailLayoutItem,
@@ -119,6 +123,7 @@ export const FORM_TEMPLATES = [
         type: LAYOUT_ITEM_TYPE_VALUES.TEXT,
         name: 'phone',
         label: 'Phone Number',
+        pattern: /^[0-9+\-\s]+$/,
         placeholder: 'e.g. +1 234 567 890',
         required: true,
       } as TextLayoutItem,
