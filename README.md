@@ -33,11 +33,11 @@ The project uses the following technologies:
 
 ## Screenshots
 
-![Desktop Preview](./screenshots/desktop-preview.png)
-_Desktop Preview_
+<img src="./screenshots/desktop-preview.png" alt="Desktop Preview">
+<p><em>Desktop Preview</em></p>
 
-![Mobile Preview](./screenshots/mobile-preview.png)
-_Mobile Preview_
+<img src="./screenshots/mobile-preview.png" alt="Mobile Preview">
+<p><em>Mobile Preview</em></p>
 
 ## Credits
 
