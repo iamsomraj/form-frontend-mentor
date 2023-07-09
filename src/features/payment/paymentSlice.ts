@@ -78,5 +78,8 @@ const paymentSlice = createSlice({
 export const { selectStep, submitFirstStep } = paymentSlice.actions;
 
 export const useCurrentStep = () => useAppSelector((state) => state.payment.currentStep);
+export const useName = () => useAppSelector((state) => state.payment.name);
+export const useEmail = () => useAppSelector((state) => state.payment.email);
+export const usePhone = () => useAppSelector((state) => state.payment.phone);
 
 export default paymentSlice.reducer;
