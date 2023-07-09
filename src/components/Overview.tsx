@@ -61,6 +61,17 @@ const Overview = () => {
     );
   });
 
+  const totalPriceContent = (
+    <div className="flex justify-between px-6">
+      <div className="font-primary-regular text-sm text-cool-gray">
+        Total (per {timelyTariff})
+      </div>
+      <div className="font-primary-bold font-bold text-purplish-blue">
+        ${totalPrice}/{tariff}
+      </div>
+    </div>
+  );
+
   return (
     <div className="mx-4 flex flex-col gap-4">
       <div className="flex flex-col gap-2 rounded-lg bg-magnolia p-4 px-6">
@@ -68,15 +79,7 @@ const Overview = () => {
         <div className="my-1 h-px w-full bg-light-gray"></div>
         {addOnContent}
       </div>
-
-      <div className="flex justify-between px-6">
-        <div className="font-primary-regular text-sm text-cool-gray">
-          Total (per {timelyTariff})
-        </div>
-        <div className="font-primary-bold font-bold text-purplish-blue">
-          ${totalPrice}/{tariff}
-        </div>
-      </div>
+      {totalPriceContent}
     </div>
   );
 };
