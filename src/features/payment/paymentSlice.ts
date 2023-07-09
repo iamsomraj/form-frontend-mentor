@@ -96,19 +96,38 @@ export const useTariff = () =>
 export const useLongTariff = () =>
   useAppSelector((state) => (state.payment.yearly ? 'Yearly' : 'Monthly'));
 export const useAddOns = () => useAppSelector((state) => state.payment.addOns);
-export const useTotalPrice = () => {
-  const plan = usePlan();
-  if (!plan) return 0;
-  const addOns = useAddOns();
-  const yearly = useYearly();
+export const useTotalPrice = () =>
+  useAppSelector((state) => {
+    const plan = state.payment.plan;
+    if (!plan) return 0;
+    const addOns = state.payment.addOns;
+    const yearly = state.payment.yearly;
 
-  const planPrice = yearly ? plan.yearlyPrice : plan.monthlyPrice;
-  const addOnsPrice = addOns.reduce(
-    (total, addOn) => total + (yearly ? addOn.yearlyPrice : addOn.monthlyPrice),
-    0,
-  );
+    const planPrice = yearly ? plan.yearlyPrice : plan.monthlyPrice;
+    const addOnsPrice = addOns.reduce(
+      (total, addOn) => total + (yearly ? addOn.yearlyPrice : addOn.monthlyPrice),
+      0,
+    );
 
-  return planPrice + addOnsPrice;
-};
+    return planPrice + addOnsPrice;
+  });
+
+export const useHasError = () =>
+  useAppSelector((state) => {
+    const currentStep = state.payment.currentStep;
+    const isFirstStep = currentStep === 'step-1-your-info';
+    const isSecondStep = currentStep === 'step-2-select-plan';
+    if (isFirstStep) {
+      const nameEmpty = state.payment.name.length === 0;
+      const emailEmpty = state.payment.email.length === 0;
+      const phoneEmpty = state.payment.phone.length === 0;
+      return nameEmpty || emailEmpty || phoneEmpty;
+    }
+    if (isSecondStep) {
+      const planEmpty = state.payment.plan === null;
+      return planEmpty;
+    }
+    return false;
+  });
 
 export default paymentSlice.reducer;

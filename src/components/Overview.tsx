@@ -11,6 +11,7 @@ import {
 const Overview = () => {
   const plan = usePlan();
   const addOns = useAddOns();
+  const hasAddOns = addOns.length > 0;
   const longTariff = useLongTariff();
   const tariff = useTariff();
   const planPrice = usePlanPrice();
@@ -76,7 +77,7 @@ const Overview = () => {
     <div className="mx-4 flex flex-col gap-4">
       <div className="flex flex-col gap-2 rounded-lg bg-magnolia p-4 px-6">
         {planContent}
-        <div className="my-1 h-px w-full bg-light-gray"></div>
+        {hasAddOns && <div className="my-1 h-px w-full bg-light-gray"></div>}
         {addOnContent}
       </div>
       {totalPriceContent}

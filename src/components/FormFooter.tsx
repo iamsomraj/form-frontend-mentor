@@ -1,12 +1,13 @@
 import { useAppDispatch } from '../app/hooks';
 import { SIDE_BAR_MENU_OPTIONS } from '../constants';
-import { selectStep, StepType } from '../features/payment/paymentSlice';
+import { selectStep, StepType, useHasError } from '../features/payment/paymentSlice';
 
 interface FormFooterProps {
   currentStep: StepType;
 }
 
 const FormFooter: React.FC<FormFooterProps> = ({ currentStep }) => {
+  const hasError = useHasError();
   const isFirstStep = currentStep === SIDE_BAR_MENU_OPTIONS[0].slug;
   const isLastStep =
     currentStep === SIDE_BAR_MENU_OPTIONS[SIDE_BAR_MENU_OPTIONS.length - 1].slug;
@@ -50,8 +51,9 @@ const FormFooter: React.FC<FormFooterProps> = ({ currentStep }) => {
           </button>
         )}
         <button
+          disabled={hasError}
           onClick={onNext}
-          className="rounded-md bg-marine-blue px-4 py-2 font-primary-medium text-sm text-light-blue"
+          className="rounded-md bg-marine-blue px-4 py-2 font-primary-medium text-sm text-light-blue disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isLastStep ? 'Confirm' : 'Next Step'}
         </button>
