@@ -41,24 +41,25 @@ const Card = ({ option, icon }: CardProps) => {
   return (
     <button
       onClick={onPlanSelect}
-      className={`flex items-center justify-start gap-4 rounded-lg border p-4 hover:border-marine-blue desktop:h-36 desktop:flex-col desktop:items-start ${
+      className={`flex h-20 items-center justify-start gap-4 rounded-lg border p-3 hover:border-marine-blue desktop:h-40 desktop:flex-col desktop:items-start desktop:p-4 ${
         isSelected ? 'border-marine-blue' : 'border-light-gray'
       }`}
     >
-      <div className="flex justify-start desktop:flex-1">
+      <div className="flex h-full items-start justify-start desktop:flex-1">
         <img
           src={icon}
           alt={option.value}
           className="h-12  w-12 flex-shrink-0 overflow-hidden rounded-full object-cover object-center"
         />
       </div>
-      <div className="flex flex-col items-start justify-start gap-1">
+      <div className="flex flex-1 flex-col items-start justify-end gap-1 transition-all duration-300">
         <div className="flex text-left font-primary-bold text-sm font-bold">
           {option.label}
         </div>
         <div className="flex text-left font-primary-medium text-xs font-medium text-cool-gray">
           ${price}/{tariff}
         </div>
+        {yearly && <div className="font-primary-regular text-sm">2 months free</div>}
       </div>
     </button>
   );
