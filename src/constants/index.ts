@@ -1,4 +1,4 @@
-import { StepType } from '../features/payment/paymentSlice';
+import { StepSlugType } from '../features/payment/paymentSlice';
 
 export enum LAYOUT_ITEM_TYPE_VALUES {
   TEXT,
@@ -71,7 +71,7 @@ export type LayoutItemType =
 export const SIDE_BAR_MENU_OPTIONS: {
   step: number;
   label: string;
-  slug: StepType;
+  slug: StepSlugType;
 }[] = [
   {
     step: 1,

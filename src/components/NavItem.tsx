@@ -1,16 +1,19 @@
 import { useAppDispatch } from '../app/hooks';
 import { SIDE_BAR_MENU_OPTIONS } from '../constants';
-import { selectStep, StepType } from '../features/payment/paymentSlice';
+import { selectStep, StepSlugType } from '../features/payment/paymentSlice';
 
 type MenuOption = (typeof SIDE_BAR_MENU_OPTIONS)[0];
 
 interface NavItemProps {
   menuItem: MenuOption;
-  currentStep: StepType;
+  currentStepSlug: StepSlugType;
 }
 
-const NavItem: React.FunctionComponent<NavItemProps> = ({ menuItem, currentStep }) => {
-  const isCurrentStepSelected = currentStep === menuItem.slug;
+const NavItem: React.FunctionComponent<NavItemProps> = ({
+  menuItem,
+  currentStepSlug,
+}) => {
+  const isCurrentStepSelected = currentStepSlug === menuItem.slug;
   const dispatch = useAppDispatch();
 
   const onStepClick = () => {

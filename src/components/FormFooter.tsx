@@ -3,21 +3,21 @@ import { SIDE_BAR_MENU_OPTIONS } from '../constants';
 import {
   saveCart,
   selectStep,
-  StepType,
+  StepSlugType,
   useHasError,
   useSaving,
 } from '../features/payment/paymentSlice';
 
 interface FormFooterProps {
-  currentStep: StepType;
+  currentStepSlug: StepSlugType;
 }
 
-const FormFooter: React.FC<FormFooterProps> = ({ currentStep }) => {
+const FormFooter: React.FC<FormFooterProps> = ({ currentStepSlug }) => {
   const hasError = useHasError();
   const saving = useSaving();
-  const isFirstStep = currentStep === SIDE_BAR_MENU_OPTIONS[0].slug;
+  const isFirstStep = currentStepSlug === SIDE_BAR_MENU_OPTIONS[0].slug;
   const isLastStep =
-    currentStep === SIDE_BAR_MENU_OPTIONS[SIDE_BAR_MENU_OPTIONS.length - 1].slug;
+    currentStepSlug === SIDE_BAR_MENU_OPTIONS[SIDE_BAR_MENU_OPTIONS.length - 1].slug;
   const dispatch = useAppDispatch();
 
   const onNext: React.MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -28,7 +28,9 @@ const FormFooter: React.FC<FormFooterProps> = ({ currentStep }) => {
       return;
     }
 
-    const index = SIDE_BAR_MENU_OPTIONS.findIndex((menu) => menu.slug === currentStep);
+    const index = SIDE_BAR_MENU_OPTIONS.findIndex(
+      (menu) => menu.slug === currentStepSlug,
+    );
     dispatch(selectStep(SIDE_BAR_MENU_OPTIONS[index + 1].slug));
   };
 
@@ -39,7 +41,9 @@ const FormFooter: React.FC<FormFooterProps> = ({ currentStep }) => {
       return;
     }
 
-    const index = SIDE_BAR_MENU_OPTIONS.findIndex((menu) => menu.slug === currentStep);
+    const index = SIDE_BAR_MENU_OPTIONS.findIndex(
+      (menu) => menu.slug === currentStepSlug,
+    );
     dispatch(selectStep(SIDE_BAR_MENU_OPTIONS[index - 1].slug));
   };
   return (

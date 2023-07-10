@@ -23,7 +23,7 @@ const isValidEmail = (email: string): boolean => {
   return emailRegex.test(email);
 };
 
-export type StepType =
+export type StepSlugType =
   | 'step-1-your-info'
   | 'step-2-select-plan'
   | 'step-3-add-ons'
@@ -41,7 +41,7 @@ export type PlanType = SellableItem | null;
 export type AddOnType = SellableItem[];
 
 interface PaymentState {
-  currentStep: StepType;
+  currentStepSlug: StepSlugType;
   name: string;
   email: string;
   phone: string;
@@ -53,7 +53,7 @@ interface PaymentState {
 }
 
 const initialState: PaymentState = {
-  currentStep: 'step-1-your-info',
+  currentStepSlug: 'step-1-your-info',
   name: '',
   email: '',
   phone: '',
@@ -83,8 +83,8 @@ const paymentSlice = createSlice({
   name: 'payment',
   initialState,
   reducers: {
-    selectStep: (state, action: PayloadAction<StepType>) => {
-      state.currentStep = action.payload;
+    selectStep: (state, action: PayloadAction<StepSlugType>) => {
+      state.currentStepSlug = action.payload;
     },
     submitFirstStep: (state, action: PayloadAction<FirstStepActionPayload>) => {
       state.name = action.payload.name;
@@ -114,7 +114,8 @@ const paymentSlice = createSlice({
 export const { selectStep, submitFirstStep, submitSecondStep, submitThirdStep } =
   paymentSlice.actions;
 
-export const useCurrentStep = () => useAppSelector((state) => state.payment.currentStep);
+export const useCurrentStepSlug = () =>
+  useAppSelector((state) => state.payment.currentStepSlug);
 export const useName = () => useAppSelector((state) => state.payment.name);
 export const useEmail = () => useAppSelector((state) => state.payment.email);
 export const usePhone = () => useAppSelector((state) => state.payment.phone);
@@ -152,10 +153,10 @@ export const useTotalPrice = () =>
 
 export const useHasError = () =>
   useAppSelector((state) => {
-    const currentStep = state.payment.currentStep;
-    const isFirstStep = currentStep === 'step-1-your-info';
-    const isSecondStep = currentStep === 'step-2-select-plan';
-    const isLastStep = currentStep === 'step-4-summary';
+    const currentStepSlug = state.payment.currentStepSlug;
+    const isFirstStep = currentStepSlug === 'step-1-your-info';
+    const isSecondStep = currentStepSlug === 'step-2-select-plan';
+    const isLastStep = currentStepSlug === 'step-4-summary';
     if (isFirstStep) {
       const nameEmpty = state.payment.name.length === 0;
       const validName = isValidName(state.payment.name);
