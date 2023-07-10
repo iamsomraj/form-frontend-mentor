@@ -1,4 +1,5 @@
 import { useAppDispatch } from '../app/hooks';
+import CheckMarkIcon from '../assets/images/icon-checkmark.svg';
 import {
   submitThirdStep,
   useAddOns,
@@ -25,7 +26,7 @@ const AddOnCard = ({ option, isAdded }: AddOnCardProps) => {
 
   const price = yearly ? option.yearlyPrice : option.monthlyPrice;
 
-  const onAddOnSelect: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+  const onAddOnSelect: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
 
     if (isAdded) {
@@ -48,18 +49,22 @@ const AddOnCard = ({ option, isAdded }: AddOnCardProps) => {
     }
   };
   return (
-    <div
-      className={`mx-4 flex items-center justify-between rounded-lg border  p-3 px-4 ${
+    <button
+      className={`mx-4 flex items-center justify-between rounded-lg border p-3 px-4 ${
         isAdded ? 'border-purplish-blue' : 'border-light-gray'
       }`}
+      onClick={onAddOnSelect}
     >
       <div className="flex items-center justify-start gap-4">
-        <input
-          type="checkbox"
-          checked={isAdded}
-          onChange={onAddOnSelect}
-          className="block h-4 w-4 cursor-pointer rounded-lg"
-        />
+        {isAdded ? (
+          <img
+            src={CheckMarkIcon}
+            alt={'Checked'}
+            className="h-5 w-5 flex-shrink-0 overflow-hidden rounded bg-purplish-blue p-1"
+          />
+        ) : (
+          <div className="h-5 w-5 flex-shrink-0 overflow-hidden rounded-lg border border-light-gray" />
+        )}
         <div className="flex flex-col items-start justify-start">
           <div className="font-primary-bold font-bold text-marine-blue">
             {option.label}
@@ -73,7 +78,7 @@ const AddOnCard = ({ option, isAdded }: AddOnCardProps) => {
       <div className="text-right font-primary-regular text-purplish-blue">
         +${price}/{tariff}
       </div>
-    </div>
+    </button>
   );
 };
 
