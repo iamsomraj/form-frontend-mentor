@@ -19,7 +19,7 @@ const FormContainer: React.FC = () => {
   const header = currentForm.header;
 
   return (
-    <main className="flex max-h-screen min-h-screen w-full items-start justify-center bg-light-blue desktop:items-center desktop:px-64 desktop:py-24">
+    <main className="flex max-h-screen min-h-screen w-full items-start justify-center bg-[#eef5ff]  desktop:items-center desktop:px-64 desktop:py-24">
       <section className="w-full justify-start desktop:flex desktop:h-[70vh] desktop:gap-16 desktop:rounded-lg desktop:bg-white desktop:shadow-xl">
         <SideBar currentStep={currentStep} />
         <div className="flex flex-1 flex-col bg-[transparent]">
