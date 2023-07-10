@@ -50,7 +50,7 @@ const AddOnCard = ({ option, isAdded }: AddOnCardProps) => {
   };
   return (
     <button
-      className={`mx-4 flex items-center justify-between rounded-lg border p-3 px-4 ${
+      className={`mx-4 flex items-center justify-between gap-2 rounded-lg border p-3 px-4 ${
         isAdded ? 'border-purplish-blue' : 'border-light-gray'
       }`}
       onClick={onAddOnSelect}
@@ -69,7 +69,7 @@ const AddOnCard = ({ option, isAdded }: AddOnCardProps) => {
           <div className="font-primary-bold font-bold text-marine-blue">
             {option.label}
           </div>
-          <div className="font-primary-medium font-medium text-light-gray">
+          <div className="line-clamp-1 text-left font-primary-medium font-medium text-light-gray">
             {option.description}
           </div>
         </div>
