@@ -1,6 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { useAppSelector } from '../../app/hooks';
+
+export const saveCart = createAsyncThunk('payment/saveCart', async () => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, 2000);
+  });
+});
 
 const isValidName = (name: string): boolean => {
   const nameRegex = /^[A-Za-z\s]+$/;
@@ -43,6 +49,7 @@ interface PaymentState {
   addOns: AddOnType;
   yearly: boolean;
   purchasedConfirmed: boolean;
+  saving: boolean;
 }
 
 const initialState: PaymentState = {
@@ -54,6 +61,7 @@ const initialState: PaymentState = {
   addOns: [],
   yearly: false,
   purchasedConfirmed: false,
+  saving: false,
 };
 
 type FirstStepActionPayload = {
@@ -90,19 +98,21 @@ const paymentSlice = createSlice({
     submitThirdStep: (state, action: PayloadAction<ThirdStepActionPayload>) => {
       state.addOns = action.payload.addOns;
     },
-    confirmPurchase: (state) => {
+  },
+  extraReducers: (builder) => {
+    builder.addCase(saveCart.pending, (state) => {
+      state.purchasedConfirmed = false;
+      state.saving = true;
+    });
+    builder.addCase(saveCart.fulfilled, (state) => {
       state.purchasedConfirmed = true;
-    },
+      state.saving = false;
+    });
   },
 });
 
-export const {
-  selectStep,
-  submitFirstStep,
-  submitSecondStep,
-  submitThirdStep,
-  confirmPurchase,
-} = paymentSlice.actions;
+export const { selectStep, submitFirstStep, submitSecondStep, submitThirdStep } =
+  paymentSlice.actions;
 
 export const useCurrentStep = () => useAppSelector((state) => state.payment.currentStep);
 export const useName = () => useAppSelector((state) => state.payment.name);
@@ -111,6 +121,7 @@ export const usePhone = () => useAppSelector((state) => state.payment.phone);
 export const usePlan = () => useAppSelector((state) => state.payment.plan);
 export const usePurchaseConfirmed = () =>
   useAppSelector((state) => state.payment.purchasedConfirmed);
+export const useSaving = () => useAppSelector((state) => state.payment.saving);
 export const usePlanPrice = () =>
   useAppSelector((state) =>
     state.payment.yearly

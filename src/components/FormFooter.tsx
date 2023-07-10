@@ -1,10 +1,11 @@
 import { useAppDispatch } from '../app/hooks';
 import { SIDE_BAR_MENU_OPTIONS } from '../constants';
 import {
-  confirmPurchase,
+  saveCart,
   selectStep,
   StepType,
   useHasError,
+  useSaving,
 } from '../features/payment/paymentSlice';
 
 interface FormFooterProps {
@@ -13,6 +14,7 @@ interface FormFooterProps {
 
 const FormFooter: React.FC<FormFooterProps> = ({ currentStep }) => {
   const hasError = useHasError();
+  const saving = useSaving();
   const isFirstStep = currentStep === SIDE_BAR_MENU_OPTIONS[0].slug;
   const isLastStep =
     currentStep === SIDE_BAR_MENU_OPTIONS[SIDE_BAR_MENU_OPTIONS.length - 1].slug;
@@ -22,7 +24,7 @@ const FormFooter: React.FC<FormFooterProps> = ({ currentStep }) => {
     event.preventDefault();
 
     if (isLastStep) {
-      dispatch(confirmPurchase());
+      dispatch(saveCart());
       return;
     }
 
@@ -56,13 +58,13 @@ const FormFooter: React.FC<FormFooterProps> = ({ currentStep }) => {
           </button>
         )}
         <button
-          disabled={hasError}
+          disabled={hasError || saving}
           onClick={onNext}
           className={`rounded-md ${
             isLastStep ? 'bg-purplish-blue text-white' : 'bg-marine-blue text-light-blue'
           }  px-4 py-2 font-primary-medium text-sm text-light-blue disabled:cursor-not-allowed disabled:opacity-50`}
         >
-          {isLastStep ? 'Confirm' : 'Next Step'}
+          {saving ? 'Saving...' : isLastStep ? 'Confirm' : 'Next Step'}
         </button>
       </div>
     </div>
