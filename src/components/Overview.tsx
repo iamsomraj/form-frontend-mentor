@@ -1,4 +1,6 @@
+import { useAppDispatch } from '../app/hooks';
 import {
+  selectStep,
   useAddOns,
   useLongTariff,
   usePlan,
@@ -9,6 +11,7 @@ import {
 } from '../features/payment/paymentSlice';
 
 const Overview = () => {
+  const dispatch = useAppDispatch();
   const plan = usePlan();
   const addOns = useAddOns();
   const hasAddOns = addOns.length > 0;
@@ -18,6 +21,11 @@ const Overview = () => {
   const totalPrice = useTotalPrice();
   const yearly = useYearly();
   const timelyTariff = yearly ? 'year' : 'month';
+
+  const goToSecondStep = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    dispatch(selectStep('step-2-select-plan'));
+  };
 
   if (!plan) {
     return (
@@ -35,9 +43,12 @@ const Overview = () => {
         <div className="font-primary-bold font-bold text-marine-blue">
           {plan.name} ({longTariff})
         </div>
-        <a className="cursor-pointer font-primary-regular text-sm text-purplish-blue hover:underline hover:underline-offset-2">
+        <button
+          onClick={goToSecondStep}
+          className="cursor-pointer text-left font-primary-regular text-sm text-purplish-blue outline-none hover:underline hover:underline-offset-2"
+        >
           Change
-        </a>
+        </button>
       </div>
       <div className="flex items-center justify-center font-primary-bold font-bold">
         ${planPrice}/{tariff}
