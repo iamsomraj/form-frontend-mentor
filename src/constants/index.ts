@@ -133,7 +133,8 @@ export const FORM_TEMPLATES = [
     slug: 'step-2-select-plan',
     header: {
       title: 'Select your plan',
-      description: 'You have the option of yearly or yearly billing.',
+      description:
+        'You have the option of isTimePeriodYearly or isTimePeriodYearly billing.',
     },
     layout: [
       {
@@ -164,11 +165,11 @@ export const FORM_TEMPLATES = [
         options: {
           true: {
             label: 'Monthly',
-            value: 'yearly',
+            value: 'isTimePeriodYearly',
           },
           false: {
             label: 'Yearly',
-            value: 'yearly',
+            value: 'isTimePeriodYearly',
           },
         },
       } as CheckboxLayoutItem,

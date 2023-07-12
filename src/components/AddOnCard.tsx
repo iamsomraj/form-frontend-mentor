@@ -3,8 +3,8 @@ import CheckMarkIcon from '../assets/images/icon-checkmark.svg';
 import {
   submitThirdStep,
   useAddOns,
-  useTariff,
-  useYearly,
+  useIsTimePeriodYearly,
+  useTimePeriod,
 } from '../features/payment/paymentSlice';
 
 interface AddOnCardProps {
@@ -21,10 +21,10 @@ interface AddOnCardProps {
 const AddOnCard = ({ option, isAdded }: AddOnCardProps) => {
   const dispatch = useAppDispatch();
   const addOns = useAddOns();
-  const yearly = useYearly();
-  const tariff = useTariff();
+  const isTimePeriodYearly = useIsTimePeriodYearly();
+  const timePeriod = useTimePeriod();
 
-  const price = yearly ? option.yearlyPrice : option.monthlyPrice;
+  const price = isTimePeriodYearly ? option.yearlyPrice : option.monthlyPrice;
 
   const onAddOnSelect: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
@@ -76,7 +76,7 @@ const AddOnCard = ({ option, isAdded }: AddOnCardProps) => {
       </div>
 
       <div className="text-right font-primary-regular text-purplish-blue">
-        +${price}/{tariff}
+        +${price}/{timePeriod}
       </div>
     </button>
   );

@@ -2,12 +2,12 @@ import { useAppDispatch } from '../app/hooks';
 import {
   selectStep,
   useAddOns,
-  useLongTariff,
+  useIsTimePeriodYearly,
+  useLongTimePeriod,
   usePlan,
   usePlanPrice,
-  useTariff,
+  useTimePeriod,
   useTotalPrice,
-  useYearly,
 } from '../features/payment/paymentSlice';
 
 const Overview = () => {
@@ -15,12 +15,12 @@ const Overview = () => {
   const plan = usePlan();
   const addOns = useAddOns();
   const hasAddOns = addOns.length > 0;
-  const longTariff = useLongTariff();
-  const tariff = useTariff();
+  const longTimePeriod = useLongTimePeriod();
+  const timePeriod = useTimePeriod();
   const planPrice = usePlanPrice();
   const totalPrice = useTotalPrice();
-  const yearly = useYearly();
-  const timelyTariff = yearly ? 'year' : 'month';
+  const isTimePeriodYearly = useIsTimePeriodYearly();
+  const timelyTariff = isTimePeriodYearly ? 'year' : 'month';
 
   const goToSecondStep = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -41,7 +41,7 @@ const Overview = () => {
     <div className="flex items-center justify-between">
       <div className="flex flex-col gap-1">
         <div className="font-primary-bold font-bold text-marine-blue">
-          {plan.name} ({longTariff})
+          {plan.name} ({longTimePeriod})
         </div>
         <button
           onClick={goToSecondStep}
@@ -51,13 +51,13 @@ const Overview = () => {
         </button>
       </div>
       <div className="flex items-center justify-center font-primary-bold font-bold">
-        ${planPrice}/{tariff}
+        ${planPrice}/{timePeriod}
       </div>
     </div>
   );
 
   const addOnContent = addOns.map((addOn, index) => {
-    const addOnPrice = yearly ? addOn.yearlyPrice : addOn.monthlyPrice;
+    const addOnPrice = isTimePeriodYearly ? addOn.yearlyPrice : addOn.monthlyPrice;
     return (
       <div
         key={addOn.name + '_' + addOn.value + '_' + index}
@@ -66,7 +66,7 @@ const Overview = () => {
         <div className="flex items-center justify-between">
           <div className="font-primary-regular text-sm text-light-gray">{addOn.name}</div>
           <div className="font-primary-regular text-sm text-marine-blue">
-            +${addOnPrice}/{tariff}
+            +${addOnPrice}/{timePeriod}
           </div>
         </div>
       </div>
@@ -79,7 +79,7 @@ const Overview = () => {
         Total (per {timelyTariff})
       </div>
       <div className="font-primary-bold font-bold text-purplish-blue">
-        ${totalPrice}/{tariff}
+        ${totalPrice}/{timePeriod}
       </div>
     </div>
   );

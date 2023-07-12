@@ -1,9 +1,9 @@
 import { useAppDispatch } from '../app/hooks';
 import {
   submitSecondStep,
+  useIsTimePeriodYearly,
   usePlan,
-  useTariff,
-  useYearly,
+  useTimePeriod,
 } from '../features/payment/paymentSlice';
 
 interface CardProps {
@@ -18,9 +18,9 @@ interface CardProps {
 
 const Card = ({ option, icon }: CardProps) => {
   const plan = usePlan();
-  const yearly = useYearly();
-  const tariff = useTariff();
-  const price = yearly ? option.yearlyPrice : option.monthlyPrice;
+  const isTimePeriodYearly = useIsTimePeriodYearly();
+  const timePeriod = useTimePeriod();
+  const price = isTimePeriodYearly ? option.yearlyPrice : option.monthlyPrice;
   const isSelected = plan?.value === option.value;
   const dispatch = useAppDispatch();
   const onPlanSelect: React.MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -28,7 +28,7 @@ const Card = ({ option, icon }: CardProps) => {
 
     dispatch(
       submitSecondStep({
-        yearly,
+        isTimePeriodYearly,
         plan: {
           name: option.label,
           value: option.value,
@@ -57,9 +57,11 @@ const Card = ({ option, icon }: CardProps) => {
           {option.label}
         </div>
         <div className="flex text-left font-primary-medium text-xs font-medium text-cool-gray">
-          ${price}/{tariff}
+          ${price}/{timePeriod}
         </div>
-        {yearly && <div className="font-primary-regular text-sm">2 months free</div>}
+        {isTimePeriodYearly && (
+          <div className="font-primary-regular text-sm">2 months free</div>
+        )}
       </div>
     </button>
   );

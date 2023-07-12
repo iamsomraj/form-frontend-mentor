@@ -47,7 +47,7 @@ interface PaymentState {
   phone: string;
   plan: PlanType;
   addOns: AddOnType;
-  yearly: boolean;
+  isTimePeriodYearly: boolean;
   purchasedConfirmed: boolean;
   saving: boolean;
 }
@@ -59,7 +59,7 @@ const initialState: PaymentState = {
   phone: '',
   plan: null,
   addOns: [],
-  yearly: false,
+  isTimePeriodYearly: false,
   purchasedConfirmed: false,
   saving: false,
 };
@@ -72,7 +72,7 @@ type FirstStepActionPayload = {
 
 type SecondStepActionPayload = {
   plan: PlanType;
-  yearly: boolean;
+  isTimePeriodYearly: boolean;
 };
 
 type ThirdStepActionPayload = {
@@ -93,7 +93,7 @@ const paymentSlice = createSlice({
     },
     submitSecondStep: (state, action: PayloadAction<SecondStepActionPayload>) => {
       state.plan = action.payload.plan;
-      state.yearly = action.payload.yearly;
+      state.isTimePeriodYearly = action.payload.isTimePeriodYearly;
     },
     submitThirdStep: (state, action: PayloadAction<ThirdStepActionPayload>) => {
       state.addOns = action.payload.addOns;
@@ -125,26 +125,28 @@ export const usePurchaseConfirmed = () =>
 export const useSaving = () => useAppSelector((state) => state.payment.saving);
 export const usePlanPrice = () =>
   useAppSelector((state) =>
-    state.payment.yearly
+    state.payment.isTimePeriodYearly
       ? state.payment.plan?.yearlyPrice
       : state.payment.plan?.monthlyPrice,
   );
-export const useYearly = () => useAppSelector((state) => state.payment.yearly);
-export const useTariff = () =>
-  useAppSelector((state) => (state.payment.yearly ? 'yr' : 'mo'));
-export const useLongTariff = () =>
-  useAppSelector((state) => (state.payment.yearly ? 'Yearly' : 'Monthly'));
+export const useIsTimePeriodYearly = () =>
+  useAppSelector((state) => state.payment.isTimePeriodYearly);
+export const useTimePeriod = () =>
+  useAppSelector((state) => (state.payment.isTimePeriodYearly ? 'yr' : 'mo'));
+export const useLongTimePeriod = () =>
+  useAppSelector((state) => (state.payment.isTimePeriodYearly ? 'Yearly' : 'Monthly'));
 export const useAddOns = () => useAppSelector((state) => state.payment.addOns);
 export const useTotalPrice = () =>
   useAppSelector((state) => {
     const plan = state.payment.plan;
     if (!plan) return 0;
     const addOns = state.payment.addOns;
-    const yearly = state.payment.yearly;
+    const isTimePeriodYearly = state.payment.isTimePeriodYearly;
 
-    const planPrice = yearly ? plan.yearlyPrice : plan.monthlyPrice;
+    const planPrice = isTimePeriodYearly ? plan.yearlyPrice : plan.monthlyPrice;
     const addOnsPrice = addOns.reduce(
-      (total, addOn) => total + (yearly ? addOn.yearlyPrice : addOn.monthlyPrice),
+      (total, addOn) =>
+        total + (isTimePeriodYearly ? addOn.yearlyPrice : addOn.monthlyPrice),
       0,
     );
 
